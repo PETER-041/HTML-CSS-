@@ -1,0 +1,22 @@
+if ((navigator.brave && navigator.brave.isBrave()) || false) {
+  console.log('Brave browser detected');
+  navigator.disableTracking = true;
+}
+
+const isSessionStorageEnabled = () => {
+  try {
+    const key = '__storage__test';
+    window.sessionStorage.setItem(key, null);
+    window.sessionStorage.removeItem(key);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+if (!isSessionStorageEnabled() || !navigator.cookieEnabled) {
+  console.error('SessionStorage or cookies are not available!');
+  alert(
+    'Hey, looks like your browser is blocking cookies or sessionStorage. Website may not work as expected. Please enable cookies and sessionStorage and reload the page.'
+  );
+}
